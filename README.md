@@ -1,4 +1,4 @@
-# Scripts to play a sound when long scripts finish executing. Useful for multitasking.
+# Bash and Zsh scripts to play a sound when long scripts finish executing. Useful for multitasking.
 https://www.loom.com/share/88d5ac579aee42829db33b3d8eae74ff
 
 ## Installation
