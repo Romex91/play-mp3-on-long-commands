@@ -6,7 +6,8 @@ function MP3_LCS_PreCommand() {
     return
   fi
   unset MP3_LCS_AT_PROMPT
-
+  
+  MP3_LCS_CMD=$BASH_COMMAND
   MP3_LCS_PRE_COMMAND_START_TIME=$(date +%s.%N)
 }
 trap "MP3_LCS_PreCommand" DEBUG
@@ -22,6 +23,13 @@ function MP3_LCS_PostCommand() {
     unset MP3_LCS_FIRST_PROMPT
     return
   fi
+
+  # If MP3_LCS_CMD strats from one of MP3_LCS_IGNORED_COMMANDS, return.
+  for MP3_LCS_IGNORED_COMMAND in "${MP3_LONG_COMMANDS_IGNORED_COMMANDS[@]}"; do
+    if [[ "$MP3_LCS_CMD" == "$MP3_LCS_IGNORED_COMMAND"* ]]; then
+      return
+    fi
+  done
 
   # If the previous command took longer than 1 second, print the time.
   MP3_LCS_PRE_COMMAND_END_TIME=$(date +%s.%N)
