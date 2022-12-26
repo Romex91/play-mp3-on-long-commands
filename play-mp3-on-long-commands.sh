@@ -24,7 +24,7 @@ function MP3_LCS_PostCommand() {
     return
   fi
 
-  # If MP3_LCS_CMD strats from one of MP3_LCS_IGNORED_COMMANDS, return.
+  # If MP3_LCS_CMD strats from one of MP3_LCS_IGNORED_COMMANDS, ignore it.
   for MP3_LCS_IGNORED_COMMAND in "${MP3_LONG_COMMANDS_IGNORED_COMMANDS[@]}"; do
     if [[ "$MP3_LCS_CMD" == "$MP3_LCS_IGNORED_COMMAND"* ]]; then
       return
