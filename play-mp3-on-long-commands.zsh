@@ -4,6 +4,11 @@ mp3_long_commands_sound_preexec() {
 }
 
 mp3_long_commands_sound_precmd() {
+  # if command is empty return
+  if [ -z "$mp3_lcs_command" ]; then
+    return
+  fi
+
   # If command strats from one of MP3_LCS_IGNORED_COMMANDS, ignore it.
   for MP3_LCS_IGNORED_COMMAND in "${MP3_LONG_COMMANDS_IGNORED_COMMANDS[@]}"; do
     if [[ "$mp3_lcs_command" == "$MP3_LCS_IGNORED_COMMAND"* ]]; then
