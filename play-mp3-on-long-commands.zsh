@@ -4,6 +4,13 @@ mp3_long_commands_sound_preexec() {
 }
 
 mp3_long_commands_sound_precmd() {
+  MP3_LCS_EXIT_CODE=$?
+
+  # If ctrl-c was pressed, return.
+  if [ $MP3_LCS_EXIT_CODE -eq 130 ]; then
+    return
+  fi
+
   # if command is empty return
   if [ -z "$mp3_lcs_command" ]; then
     return
