@@ -15,12 +15,17 @@ trap "MP3_LCS_PreCommand" DEBUG
 # This will run after the execution of the previous full command line.  We don't
 # want it PostCommand to execute when first starting a bash session (i.e., at
 # the first prompt).
-MP3_LCS_FIRST_PROMPT=1
 function MP3_LCS_PostCommand() {
+  MP3_LCS_EXIT_CODE=$?
   MP3_LCS_AT_PROMPT=1
 
-  if [ -n "$MP3_LCS_FIRST_PROMPT" ]; then
-    unset MP3_LCS_FIRST_PROMPT
+  # If ctrl-c was pressed, return.
+  if [ $MP3_LCS_EXIT_CODE -eq 130 ]; then
+    return
+  fi
+
+  # If MP3_LCS_CMD is empty, return.
+  if [ -z "$MP3_LCS_CMD" ]; then
     return
   fi
 
